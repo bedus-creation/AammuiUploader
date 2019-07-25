@@ -1,0 +1,15 @@
+{
+    "name": "aammui-uploader",
+    "version": "0.0.3",
+    "description": "Easy fileuploader for vue",
+    "main": "aammui-uploader.js",
+    "url": "http://barnyrubble.tumblr.com/",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "Fileuploaer"
+    ],
+    "author": "Bedus-creation",
+    "license": "ISC"
+}
