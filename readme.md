@@ -6,11 +6,13 @@ It's a vue filejs fileuploader.
 ```
 npm install aammui-uploader@0.1.0
 ```
-# uses
+# Uses
 ```
-<file-uploader url="/medias" :name="input_name" :imgholder="id-to-hold-image-back"></file-uploader>
+<template>
+    <file-uploader url="/medias" name="input_name" imgholder="id-to-hold-image-back"></file-uploader>
+</template>
 <script>
-import { FileUploader } from "../plugin/aammui-uploader";
+import { FileUploader } from "aammui-uploader";
 
 export default {
     components: { FileUploader }
@@ -42,6 +44,6 @@ following format.
 # Displaying back image to placeholder
 Suppose you want use this uploader to upload profile picture and when user upload and set picture you may want to display back that picture to cetain placeholder. To do so you can pass `imgholder` props.
 ```
-<file-uploader url="/medias" :name="input_name" :imgholder="id-to-hold-image-back"></file-uploader>
+<file-uploader url="/medias" name="input_name" imgholder="id-to-hold-image-back"></file-uploader>
 ```
 
