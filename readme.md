@@ -4,7 +4,7 @@ It's a vue filejs fileuploader.
 
 # Installation
 ```
-npm install aammui-uploader@0.1.0
+npm install aammui-uploader@0.1.0 --save
 ```
 # Uses
 ```
