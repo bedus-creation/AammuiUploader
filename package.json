@@ -1,6 +1,6 @@
 {
     "name": "aammui-uploader",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "description": "Easy fileuploader for vue",
     "main": "aammui-uploader.js",
     "url": "http://barnyrubble.tumblr.com/",

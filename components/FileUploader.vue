@@ -1,11 +1,11 @@
 <template>
     <div>
-        <img :src="selected.link" class="w-100" />
         <input type="hidden" v-model="selected.id" :name="name" />
         <input
             type="file"
             ref="files"
             multiple
+            accept="image/*"
             style="display:none"
             v-on:change="handleFilesUpload()"
         />
@@ -44,11 +44,21 @@
                             <div
                                 :style="'background-image: url('+item.url+'); cursor: pointer;'"
                                 class="w-100 tw-h-10 tw-bg-i"
-                                @click="setSelected(item)"
+                                @click="setSelected(item.data, item.uploaded)"
                             >
                                 <div class="local" v-if="item.uploaded">
                                     <div>&nbsp;</div>
                                     <div class="setB">set Image</div>
+                                </div>
+                                <div
+                                    class="d-flex justify-content-center align-items-center h-100"
+                                    v-else
+                                >
+                                    <div class="lds-ellipsis">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +70,7 @@
                             <div
                                 :style="'background-image: url('+item.url+'); cursor: pointer;'"
                                 class="w-100 tw-h-10 tw-bg-i"
-                                @click="setSelected(item)"
+                                @click="setSelected(item,true)"
                             >
                                 <div class="local">
                                     <div>&nbsp;</div>
@@ -80,7 +90,7 @@ import { BModal, VBModal } from "bootstrap-vue";
 import { FileUpload } from "../FileUpload";
 import axios from "axios";
 export default {
-    props: ["url", "name"],
+    props: ["url", "name", "imgholder"],
     mixins: [FileUpload],
     data() {
         return {
@@ -94,10 +104,17 @@ export default {
         };
     },
     methods: {
-        setSelected: function(item) {
+        setSelected: function(item, status) {
+            // Don't allow click when file is uploading
+            if (status == false) return;
             this.selected.id = item.id;
             this.selected.link = item.url;
             this.modalState = false;
+            this.setPlaceholder(item.url);
+        },
+        setPlaceholder: function(url) {
+            let imgholder = document.querySelector(this.imgholder);
+            imgholder.innerHTML = '<img class="w-100" src="' + url + '" />';
         },
         showModal: function() {
             this.modalState = true;
@@ -152,5 +169,60 @@ export default {
     color: #fff;
     bottom: 0;
     padding: 0.25rem 0.75rem;
+}
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-ellipsis div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(19px, 0);
+    }
 }
 </style>
