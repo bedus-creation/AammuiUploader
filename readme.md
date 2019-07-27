@@ -1,5 +1,7 @@
 # aammui fileuploader
-It's a vue filejs fileuploader.
+It's a vue js fileuploader plugin to handle multiple file upload specially made for laravel.
+
+
 ![ScreenShot](https://raw.githubusercontent.com/bedus-creation/AammuiUploader/master/docs/screenshot.png)
 
 # Installation
@@ -9,7 +11,7 @@ npm install aammui-uploader@0.1.0 --save
 # Uses
 ```
 <template>
-    <file-uploader url="/medias" name="input_name" imgholder="id-to-hold-image-back"></file-uploader>
+    <file-uploader url="http://localhost/medias" name="input_name" imgholder="id-to-hold-image-back"></file-uploader>
 </template>
 <script>
 import { FileUploader } from "aammui-uploader";
@@ -20,8 +22,8 @@ export default {
 </script>
 ```
 # Server file listing
-we assume that same url but (Get and Post) url is used to fetch and post images to server.
-For example: In above example the url /medias return the data in following format
+We assume that same url but (Get and Post) url is used to fetch and post images to server.
+For example: In above example the url http://localhost/medias return the data in following format
 ```
 {
     data: [
@@ -44,6 +46,6 @@ following format.
 # Displaying back image to placeholder
 Suppose you want use this uploader to upload profile picture and when user upload and set picture you may want to display back that picture to cetain placeholder. To do so you can pass `imgholder` props.
 ```
-<file-uploader url="/medias" name="input_name" imgholder="id-to-hold-image-back"></file-uploader>
+<file-uploader url="http://localhost/medias" name="input_name" imgholder="id-to-hold-image-back"></file-uploader>
 ```
 
