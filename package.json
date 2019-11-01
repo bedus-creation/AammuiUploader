@@ -1,15 +1,23 @@
 {
     "name": "aammui-uploader",
-    "version": "0.1.0",
-    "description": "Easy fileuploader for vue",
+    "version": "0.1.1",
+    "description": "Easy fileuploader for vue js",
     "main": "aammui-uploader.js",
-    "url": "http://barnyrubble.tumblr.com/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bedus-creation/AammuiUploader.git"
+    },
+    "bugs": {
+        "url": "https://github.com/bedus-creation/AammuiUploader/issues"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
-        "Fileuploaer"
+        "file-uploaer",
+        "vue",
+        "vuejs"
     ],
     "author": "Bedus-creation",
-    "license": "ISC"
+    "license": "MIT",
 }

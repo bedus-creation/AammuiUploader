@@ -144,7 +144,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .tw-h-10 {
     height: 10rem;
 }
