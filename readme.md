@@ -6,7 +6,7 @@ It's a vue js fileuploader plugin to handle multiple file upload specially made 
 
 # Installation
 ```
-npm install aammui-uploader@0.1.0 --save
+npm install aammui-uploader@0.2.0 --save
 ```
 # Uses
 ```
