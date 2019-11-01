@@ -10,39 +10,47 @@
             v-on:change="handleFilesUpload()"
         />
         <button id="show-modal" @click="showModal()">Show Modal</button>
-        <b-modal
-            id="modal-lg"
-            size="lg"
-            title="Large Modal"
-            headerClass="p-0"
-            bodyClass="m-0"
-            v-model="modalState"
-            hide-footer
+        <modal
+            name="aammui-uploader-modal"
+            class="mb-2"
+            width="700px"
+            height="auto"
+            :minHeight="400"
+            :scrollable="true"
+            :pivotY="0.2"
         >
-            <div slot="modal-header" class="d-flex justify-content-between w-100">
+            <div class="d-flex justify-content-between w-100 p-4">
                 <div class="d-flex w-100">
                     <button
                         @click="uploaded=false"
-                        class="btn w-50 px-3 py-2"
-                        style="border-right:1px solid #dfdfdf"
+                        :class="{'btn-primary text-white':!uploaded}"
+                        class="btn btn-outline-primary w-50 px-3 py-2"
                     >
                         <h4 class="mb-0">Upload From Computer</h4>
                     </button>
-                    <button @click="uploaded=true" class="btn w-50 px-3 py-2">
+                    <button
+                        @click="uploaded=true"
+                        :class="{'btn-primary text-white':uploaded}"
+                        class="btn btn-outline-primary w-50 px-3 py-2"
+                    >
                         <h4 class="mb-0">Choose From Server</h4>
                     </button>
                 </div>
                 <div class="p-2">
-                    <button type="button" class="close" @click="modalState=false">×</button>
+                    <button type="button" class="close" @click="hideModal()">×</button>
                 </div>
             </div>
             <transition name="slide-fade">
-                <div v-if="uploaded==false" style="height:400px; overflow-y:scroll">
-                    <button class="btn btn-success w-100" @click="addFiles()">Upload File</button>
-                    <div class="row py-3">
+                <div
+                    class="container card card-body"
+                    v-if="uploaded==false"
+                    style="height:300px; overflow-y:auto"
+                >
+                    <button class="btn btn-success w-100 px-2" @click="addFiles()">Upload File</button>
+                    <div class="row my-2">
                         <div v-for="item in files" :key="item.id" class="col-md-3 mb-2">
                             <div
-                                :style="'background-image: url('+item.url+'); cursor: pointer;'"
+                                :style="'background-image: url('+item.url+'); cursor: pointer; background-color: rgba(0, 0, 0, 0.2);'"
                                 class="w-100 tw-h-10 tw-bg-i"
                                 @click="setSelected(item.data, item.uploaded)"
                             >
@@ -64,8 +72,12 @@
                         </div>
                     </div>
                 </div>
-                <div v-else style="height:400px; overflow-y:scroll">
-                    <div class="row">
+                <div
+                    class="container card card-body"
+                    v-else
+                    style="min-height:300px; overflow-y:auto"
+                >
+                    <div class="row my-2">
                         <div v-for="item in data" :key="item.id" class="col-md-3 mb-2">
                             <div
                                 :style="'background-image: url('+item.url+'); cursor: pointer;'"
@@ -81,10 +93,13 @@
                     </div>
                 </div>
             </transition>
-        </b-modal>
+        </modal>
     </div>
 </template>
 <script>
+import Vue from "vue";
+import VModal from "vue-js-modal/dist/ssr.index";
+Vue.use(VModal);
 import $ from "jquery";
 import { BModal, VBModal } from "bootstrap-vue";
 import { FileUpload } from "../FileUpload";
@@ -109,7 +124,7 @@ export default {
             if (status == false) return;
             this.selected.id = item.id;
             this.selected.link = item.url;
-            this.modalState = false;
+            this.hideModal();
             this.setPlaceholder(item.url);
         },
         setPlaceholder: function(url) {
@@ -117,8 +132,11 @@ export default {
             imgholder.innerHTML = '<img class="w-100" src="' + url + '" />';
         },
         showModal: function() {
-            this.modalState = true;
+            this.$modal.show("aammui-uploader-modal");
             this.fecthData();
+        },
+        hideModal: function() {
+            this.$modal.hide("aammui-uploader-modal");
         },
         fecthData: function() {
             axios
@@ -131,7 +149,6 @@ export default {
                 });
         }
     },
-    components: { "b-modal": BModal },
     mounted() {
         let vm = this;
         var elementToToggle = $(".modal-container");
@@ -158,7 +175,7 @@ export default {
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.2);
 }
 .tw-bg-i {
     background-position: center !important;
